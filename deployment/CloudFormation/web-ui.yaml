@@ -119,6 +119,7 @@ Resources:
     # This dependency is needed so that the load balancer is setup correctly in time
     DependsOn:
       - ListenerHTTPS
+      - TargetGroup
     Properties: 
       ServiceName: !Join ['', [!Ref AppName, 'Service']]
       Cluster: !Ref ECSCluster

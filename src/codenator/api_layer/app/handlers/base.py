@@ -9,7 +9,7 @@ ddb_client = boto3.client("dynamodb")
 class BaseModel:
     def __init__(self, table_name):
         self.table_name = table_name
-        
+
     def inovke_api(self):
         raise NotImplementedError("Not implemented in base model, make sure to override this method.")
 

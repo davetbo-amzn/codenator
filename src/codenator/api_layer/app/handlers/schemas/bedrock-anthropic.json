@@ -2,7 +2,7 @@
     "request": {
         "defaults": {
             "prompt": "My name is Olivier and I",
-            "max_tokens_to_sample": 4096,
+            "max_tokens": 4096,
             "stop_sequences": [],
             "temperature": 1.0,
             "top_p": 1.0,
@@ -10,7 +10,7 @@
         },
         "mapping": {
             "prompt": "$.prompt",
-            "max_new_tokens": "$.max_tokens_to_sample",
+            "max_new_tokens": "$.max_tokens",
             "temperature": "$.temperature",
             "top_p": "$.top_p",
             "top_k": "$.top_k",

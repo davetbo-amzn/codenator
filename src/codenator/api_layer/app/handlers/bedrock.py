@@ -63,6 +63,36 @@ class model(BaseModel):
             self.response_stream_mapping
         ) = self.load_mappings(schema_path)
 
+
+    def converse(self, model_id, messages, guardrail_config={}, inference_config={}, stream=True, system=[], tool_config={}):
+        args = {
+            'modelId': model_id,
+            'messages': messages
+        }
+        if guardrail_config != {}:
+            args["guardrailConfig"] = guardrail_config
+        if inference_config != {}:
+            args["inferenceConfig"] = inference_config
+        if len(system) > 0:
+            args["system"] = system
+        if tool_config != {}:
+            args["toolConfig"] = tool_config
+        if stream:
+            response = self.bedrock_client.converse_stream(**args)
+            for line in self.stream_iter(response["body"]):
+                if line:
+                    print(f"Got line from stream: {line}")
+                    output = self.parse_response(
+                        line,
+                        self.response_stream_mapping,
+                        regex_sub=self.response_stream_regex
+                    )
+                yield output
+        else:
+            response = self.bedrock_client.converse(**args)
+            print(f"Response from converse call: {response}")
+            return response['output']['message']['content'][0]['text']
+    
     def invoke(self, body):
         try:
             request_body = self.form_request(
