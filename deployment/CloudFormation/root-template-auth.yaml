@@ -63,7 +63,7 @@ Parameters:
   Certificate:
     Type: String
     # Update with the certificate ARN from Certificate Manager, which must exist in the same region.
-    Default: 'arn:aws:acm:region:account_id:certificate/00000000-0000-0000-0000-000000000000'
+    Default: ''
     Description: SSL/TLS certificates ARN from Certificate Manager, which must exist in the same region.
   PublicDomainName:
     Type: String
